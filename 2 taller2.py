@@ -8,15 +8,29 @@ class ListDynamic(object):
 
   def __init__(self):
     self.head = None
+    self.tail = None
     self.size = 0
 
   def add_element(self, ele):
     new_item = Item(ele)
     if self.size == 0:
       self.head = new_item
+      self.tail=new_item
       aux = self.head
-      aux.nxt=self.head
-      aux.prv=self.head
+      aux.nxt=self.tail
+      aux.prv=self.tail
+      aux2 = self.tail
+      aux2.nxt=self.head
+      aux2.prv=self.head
+    elif self.size == 1:
+      self.tail = new_item
+      aux=self.head
+      aux2=self.tail
+      aux.nxt=self.tail
+      aux.prv=self.tail
+      aux2.nxt=self.head
+      aux2.prv=self.head
+
     else:
       aux = self.head
       while(aux.nxt != self.head):
@@ -75,16 +89,16 @@ class ListDynamic(object):
   def print_list(self):
     item = self.head
     print("\n")
-    g=self.size
+    g=self.size+2
     for i in range(g):
       print(item.item)
       item =  item.nxt
     print("-------------------\n")
 
   def printinv_list(self):
-    item = self.head
+    item = self.tail
     print("\n")
-    g=self.size
+    g=self.size+2
     for i in range(g):
       print(item.item)
       item =  item.prv
