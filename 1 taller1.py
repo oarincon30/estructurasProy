@@ -57,8 +57,9 @@ class ListDynamic(object):
           elif s==self.size:
               lista.remove_tail()
           elif s==1:
-              aux2=aux2.nxt
-              self.head=aux2
+              aux3=aux.nxt
+              self.head=aux3
+              self.size -=1
 
       else:
           print("NO esta en la lista")
