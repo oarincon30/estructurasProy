@@ -4,7 +4,6 @@ class Item():
     self.nxt = None
 
 class ListDynamic(object):
-
   def __init__(self):
     self.head = None
     self.size = 0
@@ -60,10 +59,8 @@ class ListDynamic(object):
               aux3=aux.nxt
               self.head=aux3
               self.size -=1
-
       else:
           print("NO esta en la lista")
-
 
   def print_list(self):
     item = self.head
@@ -73,12 +70,9 @@ class ListDynamic(object):
       item =  item.nxt
     print("-------------------\n")
 
-
-lista = ListDynamic()
-#lista.size
-
-op=0
-while ((op < 1) or (op > 5)):
+  lista = ListDynamic()
+  op=0
+  while ((op < 1) or (op > 5)):
     print("\n 1) Agregar nuevo elemento \n 2) Elimina el ultimo elemento\n 3) Buscar y eliminar elemento\n 4) Imprimir lista\n 5)Salir")
     op=int(input("\n  -Escoge una opcion: "))
     if op==1:
