@@ -31,36 +31,40 @@ class ListDynamic(object):
           self.size -=1
 
   def remove_element(self, val):
-      elim=val
-      aux = self.head
-      aux2=self.head
-      s=1
-      t=0
-      for i in range(self.size):
-          if aux2.item==elim:
-              t+=1
-              break
-          else:
-              aux2 = aux2.nxt
-              s+=1
-      if (t>0):
-          print("Esta en la lista"+str(s))
-
-          if (s>1)and(s<self.size):
-            s2=s-2
-            for i in range(s2):
-                aux=aux.nxt
-            aux.nxt=aux2.nxt
-            aux2.nxt=None
-            self.size-=1
-          elif s==self.size:
-              lista.remove_tail()
-          elif s==1:
-              aux3=aux.nxt
-              self.head=aux3
-              self.size -=1
+      if self.size<1:
+          pass
       else:
-          print("NO esta en la lista")
+          elim=val
+          aux = self.head
+          aux2=self.head
+          s=1
+          t=0
+          for i in range(self.size):
+              if aux2.item==elim:
+                  t+=1
+                  break
+              else:
+                  aux2 = aux2.nxt
+                  s+=1
+          if (t>0):
+              print("Esta en la lista"+str(s))
+
+              if (s>1)and(s<self.size):
+                s2=s-2
+                for i in range(s2):
+                    aux=aux.nxt
+                aux.nxt=aux2.nxt
+                aux2.nxt=None
+                self.size-=1
+              elif s==self.size:
+                  lista.remove_tail()
+              elif s==1:
+                  aux3=aux.nxt
+                  self.head=aux3
+                  self.size -=1
+          else:
+              print("NO esta en la lista")
+
 
   def print_list(self):
     item = self.head
@@ -70,9 +74,9 @@ class ListDynamic(object):
       item =  item.nxt
     print("-------------------\n")
 
-  lista = ListDynamic()
-  op=0
-  while ((op < 1) or (op > 5)):
+lista = ListDynamic()
+op=0
+while ((op < 1) or (op > 5)):
     print("\n 1) Agregar nuevo elemento \n 2) Elimina el ultimo elemento\n 3) Buscar y eliminar elemento\n 4) Imprimir lista\n 5)Salir")
     op=int(input("\n  -Escoge una opcion: "))
     if op==1:
@@ -83,8 +87,9 @@ class ListDynamic(object):
         lista.remove_tail()
         op=0
     if op==3:
-        eliminar=int(input("\n Escribe elemento a eliminar: "))
-        lista.remove_element(eliminar)
+        if lista.size>0:
+            eliminar=int(input("\n Escribe elemento a eliminar: "))
+            lista.remove_element(eliminar)
         op=0
     if op==4:
         lista.print_list()
