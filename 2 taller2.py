@@ -63,14 +63,45 @@ class ListDynamic(object):
               aux2 = aux2.nxt
               s+=1
       if (t>0):
-          print("Esta en la lista"+str(s))
+          if s==self.size:
+              if s==1:
+                  self.size-=1
+              elif s==2:
+                  aux2=self.tail
 
-          if (s>1):
+                  aux2.item=aux.item
+
+                  aux.nxt=self.tail
+                  aux.prv=self.tail
+
+                  aux2.nxt=self.head
+                  aux2.prv=self.head
+                  self.size-=1
+              else:
+                  s2=s-2
+                  #aux2.nxt=None
+                  #aux2.prv=None
+
+                  aux3=self.head
+                  for i in range(s2):
+                      aux3=aux3.nxt
+
+                  self.tail=aux3
+                  aux2=self.tail
+                  aux.prv=self.tail
+                  aux2.nxt=self.head
+                  #aux2.prv=aux3.prv
+                  #aux3=None
+
+                  self.size-=1
+
+          elif (s>1):
             s2=s-2
             for i in range(s2):
                 aux=aux.nxt
             aux.nxt=aux2.nxt
             aux2.nxt=None
+            aux2.prv=None
             aux3=aux.nxt
             aux3.prv=aux
             self.size-=1
@@ -82,8 +113,6 @@ class ListDynamic(object):
             self.head=aux3
             aux2.nxt=self.head
             aux3.prv=aux2
-
-
             self.size-=1
 
       else:
@@ -92,8 +121,9 @@ class ListDynamic(object):
 
   def print_list(self):
     item = self.head
-    print("\n")
-    g=self.size+5
+    g=0
+    if self.size > 0:
+        g=self.size
     for i in range(g):
       print(item.item)
       item =  item.nxt
@@ -101,8 +131,9 @@ class ListDynamic(object):
 
   def printinv_list(self):
     item = self.tail
-    print("\n")
-    g=self.size+5
+    g=0
+    if self.size > 0:
+        g=self.size
     for i in range(g):
       print(item.item)
       item =  item.prv
@@ -116,8 +147,8 @@ lista = ListDynamic()
 
 op=0
 while ((op < 1) or (op > 5)):
-    print("\n 1) Agregar nuevo elemento \n 2) Buscar y eliminar elemento\n 3) Imprimir lista\n 4) Imprimir invertida\n 5)Salir")
-    op=int(input("\n  -Escoge una opcion: "))
+    print("\n 1) Agregar nuevo elemento \n 2) Buscar y eliminar elemento\n 3) Imprimir lista\n 4) Imprimir invertida\n 5) Salir")
+    op=int(input("\n--Escoge una opcion: "))
     if op==1:
         entrada=int(input("\n Escribe elemento a ingresar: "))
         lista.add_element(entrada)
