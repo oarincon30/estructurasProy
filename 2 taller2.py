@@ -6,7 +6,6 @@ class Item():
     self.prv = None
 
 class ListDynamic(object):
-
   def __init__(self):
     self.head = None
     self.tail = None
@@ -31,12 +30,10 @@ class ListDynamic(object):
       aux.prv=self.tail
       aux2.nxt=self.head
       aux2.prv=self.head
-
     else:
       aux3 = self.head
       while(aux3.nxt != self.head):
         aux3 = aux3.nxt
-
       self.tail = new_item
       aux3.nxt = self.tail
       aux2=self.tail
@@ -45,9 +42,7 @@ class ListDynamic(object):
       aux=self.head
       aux.prv=self.tail
 
-
     self.size += 1
-
 
   def remove_element(self, val):
       elim=val
@@ -68,33 +63,22 @@ class ListDynamic(object):
                   self.size-=1
               elif s==2:
                   aux2=self.tail
-
                   aux2.item=aux.item
-
                   aux.nxt=self.tail
                   aux.prv=self.tail
-
                   aux2.nxt=self.head
                   aux2.prv=self.head
                   self.size-=1
               else:
                   s2=s-2
-                  #aux2.nxt=None
-                  #aux2.prv=None
-
                   aux3=self.head
                   for i in range(s2):
                       aux3=aux3.nxt
-
                   self.tail=aux3
                   aux2=self.tail
                   aux.prv=self.tail
                   aux2.nxt=self.head
-                  #aux2.prv=aux3.prv
-                  #aux3=None
-
                   self.size-=1
-
           elif (s>1):
             s2=s-2
             for i in range(s2):
@@ -114,10 +98,8 @@ class ListDynamic(object):
             aux2.nxt=self.head
             aux3.prv=aux2
             self.size-=1
-
       else:
           print("NO esta en la lista")
-
 
   def print_list(self):
     item = self.head
@@ -139,11 +121,7 @@ class ListDynamic(object):
       item =  item.prv
     print("-------------------\n")
 
-
-
-
 lista = ListDynamic()
-#lista.size
 
 op=0
 while ((op < 1) or (op > 5)):
