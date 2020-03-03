@@ -1,3 +1,4 @@
+
 class Item():
   def __init__(self, obj):
     self.item = obj
@@ -32,16 +33,19 @@ class ListDynamic(object):
       aux2.prv=self.head
 
     else:
-      aux = self.head
-      while(aux.nxt != self.head):
-        aux = aux.nxt
-      j=self.size-2
-      aux4=self.head
-      for i in range(j):
-            aux4=aux4.nxt
-      aux.nxt = new_item
-      new_item.prv=aux4
-      new_item.nxt=self.head
+      aux3 = self.head
+      while(aux3.nxt != self.head):
+        aux3 = aux3.nxt
+
+      self.tail = new_item
+      aux3.nxt = self.tail
+      aux2=self.tail
+      aux2.prv=aux3
+      aux2.nxt=self.head
+      aux=self.head
+      aux.prv=self.tail
+
+
     self.size += 1
 
 
@@ -89,7 +93,7 @@ class ListDynamic(object):
   def print_list(self):
     item = self.head
     print("\n")
-    g=self.size+2
+    g=self.size+5
     for i in range(g):
       print(item.item)
       item =  item.nxt
@@ -98,7 +102,7 @@ class ListDynamic(object):
   def printinv_list(self):
     item = self.tail
     print("\n")
-    g=self.size+2
+    g=self.size+5
     for i in range(g):
       print(item.item)
       item =  item.prv
