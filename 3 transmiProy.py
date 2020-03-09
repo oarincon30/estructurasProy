@@ -1,10 +1,20 @@
-
+from xml.dom import minidom
+doc = minidom.parse("transmilenio.xml")
+estacion = doc.getElementsByTagName("nombre")[14]
+print("estacion: ", estacion.firstChild.data)
+print("estacion: ", estacion.firstChild.data)
 
 class Item():
-  def __init__(self, obj):
+  def __init__(self, obj, obj2, obj3, obj4, obj5):
     self.item = obj
-    self.nxt = None
-    self.prv = None
+    self.geoLat = obj2
+    self.geoLong = obj3
+    self.tipo = obj4
+    self.troncal = obj5
+    self.nxtc = None
+    self.prvc = None
+    self.nxtd = None
+    self.prvd = None
 
 class ListDynamic(object):
   def __init__(self):
@@ -12,95 +22,31 @@ class ListDynamic(object):
     self.tail = None
     self.size = 0
 
-  def add_element(self, ele):
-    new_item = Item(ele)
+  def add_element(self, ele, b, c, d, e):
+    new_item = Item(ele, b, c, d, e)
     if self.size == 0:
       self.head = new_item
       self.tail=new_item
       aux = self.head
-      aux.nxt=self.tail
-      aux.prv=self.tail
+      aux.nxtc=self.tail
       aux2 = self.tail
-      aux2.nxt=self.head
-      aux2.prv=self.head
+      aux2.prvc=self.head
     elif self.size == 1:
       self.tail = new_item
       aux=self.head
       aux2=self.tail
-      aux.nxt=self.tail
-      aux.prv=self.tail
-      aux2.nxt=self.head
-      aux2.prv=self.head
+      aux.nxtc=self.tail
+      aux2.prvc=self.head
     else:
       aux3 = self.head
-      while(aux3.nxt != self.head):
-        aux3 = aux3.nxt
+      while(aux3.nxtc != None):
+        aux3 = aux3.nxtc
       self.tail = new_item
-      aux3.nxt = self.tail
+      aux3.nxtc = self.tail
       aux2=self.tail
-      aux2.prv=aux3
-      aux2.nxt=self.head
-      aux=self.head
-      aux.prv=self.tail
+      aux2.prvc=aux3
 
     self.size += 1
-
-  def remove_element(self, val):
-      elim=val
-      aux = self.head
-      aux2=self.head
-      s=1
-      t=0
-      for i in range(self.size):
-          if aux2.item==elim:
-              t+=1
-              break
-          else:
-              aux2 = aux2.nxt
-              s+=1
-      if (t>0):
-          if s==self.size:
-              if s==1:
-                  self.size-=1
-              elif s==2:
-                  aux2=self.tail
-                  aux2.item=aux.item
-                  aux.nxt=self.tail
-                  aux.prv=self.tail
-                  aux2.nxt=self.head
-                  aux2.prv=self.head
-                  self.size-=1
-              else:
-                  s2=s-2
-                  aux3=self.head
-                  for i in range(s2):
-                      aux3=aux3.nxt
-                  self.tail=aux3
-                  aux2=self.tail
-                  aux.prv=self.tail
-                  aux2.nxt=self.head
-                  self.size-=1
-          elif (s>1):
-            s2=s-2
-            for i in range(s2):
-                aux=aux.nxt
-            aux.nxt=aux2.nxt
-            aux2.nxt=None
-            aux2.prv=None
-            aux3=aux.nxt
-            aux3.prv=aux
-            self.size-=1
-          elif s==1:
-            g=self.size-1
-            for i in range(g):
-                aux2=aux2.nxt
-            aux3=aux.nxt
-            self.head=aux3
-            aux2.nxt=self.head
-            aux3.prv=aux2
-            self.size-=1
-      else:
-          print("NO esta en la lista")
 
   def print_list(self):
     item = self.head
@@ -109,7 +55,12 @@ class ListDynamic(object):
         g=self.size
     for i in range(g):
       print(item.item)
-      item =  item.nxt
+      print(item.geoLat)
+      print(item.geoLong)
+      print(item.tipo)
+      print(item.troncal)
+      print("--")
+      item =  item.nxtc
     print("-------------------\n")
 
   def printinv_list(self):
@@ -119,22 +70,51 @@ class ListDynamic(object):
         g=self.size
     for i in range(g):
       print(item.item)
-      item =  item.prv
+      print(item.geoLat)
+      print(item.geoLong)
+      print(item.tipo)
+      print(item.troncal)
+      print("--")
+      item =  item.prvc
     print("-------------------\n")
 
 lista = ListDynamic()
 
+todasEst = doc.getElementsByTagName("estacion")
+print("-----")
+for estacion in todasEst:
+    nombre=estacion.getElementsByTagName("nombre")[0]
+    latitud = estacion.getElementsByTagName("latitud")[0]
+    longitud = estacion.getElementsByTagName("longitud")[0]
+    tipo=estacion.getElementsByTagName("tipo")[0]
+    troncal=estacion.getElementsByTagName("troncal")[0]
+    a = nombre.firstChild.data
+    b = latitud.firstChild.data
+    c = longitud.firstChild.data
+    b=float(b)
+    c=float(c)
+    d = tipo.firstChild.data
+    e = troncal.firstChild.data
+    #troncal=estacion
+    lista.add_element(a, b, c, d, e)
+    #print(a)
+    #print(b)
+    #print(c)
+    #print(type(b))
+    #print(type(c))
+    #print()
+
+
+
+#lista.add_element(entrada)
+
 op=0
 while ((op < 1) or (op > 5)):
-    print("\n 1) Agregar nuevo elemento \n 2) Buscar y eliminar elemento\n 3) Imprimir lista\n 4) Imprimir invertida\n 5) Salir")
+    print("\n 3) Imprimir lista\n 4) Imprimir invertida\n 5) Salir")
     op=int(input("\n--Escoge una opcion: "))
     if op==1:
-        entrada=int(input("\n Escribe elemento a ingresar: "))
-        lista.add_element(entrada)
         op=0
     if op==2:
-        eliminar=int(input("\n Escribe elemento a eliminar: "))
-        lista.remove_element(eliminar)
         op=0
     if op==3:
         lista.print_list()
